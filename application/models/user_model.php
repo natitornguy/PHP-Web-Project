@@ -14,13 +14,25 @@ class user_model extends CI_Model
 
         return $query->result();
     }
-    public function getbyID($id)
-    {
-        $this->db->where('user_id', $id);
-        $query = $this->db->get('users');
+    public function getuser($username)
+    {   
+        $this->db->select('username');
+        $this->db->from('users');
+        $this->db->where('username', $username);
+        $query = $this->db->get();
 
         return $query->row(0);
     }
+    public function getpassword($password)
+    {   
+        $this->db->select('username');
+        $this->db->from('users');
+        $this->db->where('username', $password);
+        $query = $this->db->get();
+
+        return $query->row(0);
+    }
+
     public function insert($params)
     {
         $this->db->insert('users', $params);
