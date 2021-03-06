@@ -13,7 +13,7 @@ class employee_model extends CI_Model
             $this->db->like("EMP_FNAME", $keyword, "both");
         }
 
-        $this->db->order_by('EMP_ID',"ASC");
+        $this->db->order_by('EMP_ID', "ASC");
         // $this->db->limit($perpage, $start);
         $query = $this->db->get();
 
@@ -28,7 +28,10 @@ class employee_model extends CI_Model
     }
     public function insert($params)
     {
-        $this->db->insert('employees', $params);
+        $this->db->insert('employees', $params);        
+        $insert_id = $this->db->insert_id();       
+
+        return  $insert_id;
     }
     public function update($id, $params)
     {
@@ -38,6 +41,8 @@ class employee_model extends CI_Model
 
     public function delete($emp_id)
     {
+        $this->db->where('EMP_ID', $emp_id);
+        $this->db->delete('users');
         $this->db->where('emp_id', $emp_id);
         $this->db->delete('employees');
     }
@@ -46,11 +51,14 @@ class employee_model extends CI_Model
     {
         $this->db->select("*");
         $this->db->from("departments");
-        $this->db->order_by('DEP_ID',"ASC");
+        $this->db->order_by('DEP_ID', "ASC");
 
         $query = $this->db->get();
 
         return $query->result();
-
+    }
+    public function generateUserPassword($params)
+    {
+        $this->db->insert('users', $params);
     }
 }
