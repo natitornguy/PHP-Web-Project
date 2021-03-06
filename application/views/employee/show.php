@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amphur</title>
+    <title>Manage Employees</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 <body>
@@ -24,6 +24,7 @@
                             <th>Name</th>
                             <th>PHONE NUMBER</th>
                             <th>EMAIL</th>
+                            <th>DEPARTMENT</th>
                             <th>ACTIONS</th>
                         </tr>
 
@@ -33,9 +34,10 @@
                             <td><?=$employee->EMP_FNAME?> <?=$employee->EMP_LNAME?></td>
                             <td><?=$employee->EMP_PHONE?></td>
                             <td><?=$employee->EMP_EMAIL?></td>
+                            <td><?=$employee->DEP_NAME?></td>
                             <td>
                                 <a href="<?=base_url("Employee/editForm/$employee->EMP_ID")?>" class="btn btn-warning">Edit</a>
-                                <a href="<?=base_url("#")?>" class="btn btn-danger" onclick="return confirm('Delete <?=$employee->EMP_FNAME?>?');">Delete</a>
+                                <a href="<?=base_url("Employee/delete/$employee->EMP_ID")?>" class="btn btn-danger" onclick="return confirm('Delete <?=$employee->EMP_FNAME?>?');">Delete</a>
                             </td>
                         </tr>
                         <?php } ?>

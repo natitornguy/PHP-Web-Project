@@ -6,9 +6,9 @@ class employee_model extends CI_Model
     }
     public function getAll($keyword = "")
     {
-        $this->db->select("*");
+        $this->db->select("employees.*, departments.DEP_NAME");
         $this->db->from("employees");
-
+        $this->db->join("departments", "departments.DEP_ID = employees.DEP_ID");
         if (strlen($keyword) > 0) {
             $this->db->like("EMP_FNAME", $keyword, "both");
         }
@@ -30,9 +30,9 @@ class employee_model extends CI_Model
     {
         $this->db->insert('employees', $params);
     }
-    public function update($params, $id)
+    public function update($id, $params)
     {
-        $this->db->where('emp_id', $id);
+        $this->db->where('EMP_ID', $id);
         $this->db->update('employees', $params);
     }
 
@@ -40,5 +40,17 @@ class employee_model extends CI_Model
     {
         $this->db->where('emp_id', $emp_id);
         $this->db->delete('employees');
+    }
+
+    public function getAllDepartment()
+    {
+        $this->db->select("*");
+        $this->db->from("departments");
+        $this->db->order_by('DEP_ID',"ASC");
+
+        $query = $this->db->get();
+
+        return $query->result();
+
     }
 }
