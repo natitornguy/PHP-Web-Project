@@ -1,16 +1,12 @@
 <?php
 class employee_model extends CI_Model
 {
-    public function __construct()
-    {
-
-    }
-    public function getAll($start = 0, $perpage = 0)
+    public function getAll(/*$start = 0, $perpage = 0*/)
     {
         $this->db->select('*');
         $this->db->from('employees');
         $this->db->order_by('emp_fname');
-        $this->db->limit($perpage, $start);
+        // $this->db->limit($perpage, $start);
         $query = $this->db->get();
 
         return $query->result();
