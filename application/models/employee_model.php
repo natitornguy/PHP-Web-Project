@@ -3,14 +3,18 @@ class employee_model extends CI_Model
 {
     public function __construct()
     {
-
     }
-    public function getAll($start = 0, $perpage = 0)
+    public function getAll($keyword = "")
     {
-        $this->db->select('*');
-        $this->db->from('employees');
-        $this->db->order_by('emp_fname');
-        $this->db->limit($perpage, $start);
+        $this->db->select("*");
+        $this->db->from("employees");
+
+        if (strlen($keyword) > 0) {
+            $this->db->like("EMP_FNAME", $keyword, "both");
+        }
+
+        $this->db->order_by('EMP_ID',"ASC");
+        // $this->db->limit($perpage, $start);
         $query = $this->db->get();
 
         return $query->result();
@@ -36,6 +40,5 @@ class employee_model extends CI_Model
     {
         $this->db->where('emp_id', $emp_id);
         $this->db->delete('employees');
-        
     }
 }
