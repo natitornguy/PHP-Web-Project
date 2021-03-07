@@ -11,6 +11,7 @@ class employee_model extends CI_Model
         $this->db->join("departments", "departments.DEP_ID = employees.DEP_ID");
         if (strlen($keyword) > 0) {
             $this->db->like("EMP_FNAME", $keyword, "both");
+            $this->db->or_like("EMP_LNAME", $keyword, "both");
         }
 
         $this->db->order_by('EMP_ID', "ASC");

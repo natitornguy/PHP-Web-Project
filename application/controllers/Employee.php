@@ -10,22 +10,22 @@ class Employee extends CI_Controller
     public function index()
     {
         $keyword = $this->input->get("keyword");
-        $data = array(
-            "keyword" => $keyword,
-            "employees" => $this->employee_model->getAll($keyword)
-        );
-        $this->load->view("employee/show", $data);
+        $data["keyword"] = $keyword;
+        $data["employees"] = $this->employee_model->getAll($keyword);
+        $data["content"] = "employee/show";
+        $data["header"] = "Manage Employee";
+        $this->load->view("layout/main", $data);
     }
 
     public function editForm($emp_id)
     {
-        $data = array(
-            "method" => "edit",
-            "departments" => $this->employee_model->getAllDepartment(),
-            "info" => $this->employee_model->getByID($emp_id)
-        );
+        $data["method"] = "edit";
+        $data["departments"] = $this->employee_model->getAllDepartment();
+        $data["info"] = $this->employee_model->getByID($emp_id);
+        $data["content"] = "employee/form";
+        $data["header"] = "User Profile";
 
-        $this->load->view("employee/form", $data);
+        $this->load->view("layout/main", $data);
     }
 
     public function editSave($emp_id)
@@ -42,17 +42,17 @@ class Employee extends CI_Controller
         $this->employee_model->update($emp_id, $arr);
 
         redirect("employee/index");
-    }    
+    }
 
     public function addForm()
     {
-        $data = array(
-            "method" => "add",
-            "departments" => $this->employee_model->getAllDepartment(),
-            "info"=> ""
-        );
+        $data["method"] = "add";
+        $data["departments"] = $this->employee_model->getAllDepartment();
+        $data["info"] = "";
+        $data["content"] = "employee/form";
+        $data["header"] = "User Profile";
 
-        $this->load->view("Employee/form", $data);
+        $this->load->view("layout/main", $data);
     }
 
     public function addSave()
@@ -74,7 +74,7 @@ class Employee extends CI_Controller
         );
 
         $id = $this->employee_model->insert($arr);
-        $this->generateUser($email,$phone_num,$id,$department);
+        $this->generateUser($email, $phone_num, $id, $department);
         redirect("employee/index");
     }
 
@@ -85,9 +85,9 @@ class Employee extends CI_Controller
         redirect("employee/index");
     }
 
-    public function generateUser($id,$password,$emp_id,$dep_id)
+    public function generateUser($id, $password, $emp_id, $dep_id)
     {
-        $role = $dep_id == 1? 1 : 2;
+        $role = $dep_id == 1 ? 1 : 2;
 
         $arr = array(
             "USERNAME" => $id,
@@ -100,4 +100,3 @@ class Employee extends CI_Controller
         redirect("employee/index");
     }
 }
-?>

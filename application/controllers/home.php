@@ -1,14 +1,15 @@
 <?php
-class home extends CI_Controller{
+class Home extends CI_Controller
+{
     function __construct()
     {
-        $this->load->model('employee_model');
-        $this->load->model('user_model');
-        $this->load->model('leave_model');
-        $this->load->model('department_model');
+        parent::__construct();
     }
-    public function index(){
-        
+
+    public function index()
+    {
+        $data["content"] = "leaveform.php";
+        $this->load->view("layout/main", $data);
     }
 }
 ?>

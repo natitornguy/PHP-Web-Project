@@ -1,9 +1,7 @@
 <?php
 class user_model extends CI_Model
 {
-    public function __construct()
-    {
-    }
+
     public function getAll($start = 0, $perpage = 0)
     {
         $this->db->select('*');
@@ -14,23 +12,15 @@ class user_model extends CI_Model
 
         return $query->result();
     }
-    public function getuser($username)
+    public function getuser($username,$password)
     {   
-        $this->db->select('username');
+        $this->db->select('*');
         $this->db->from('users');
         $this->db->where('username', $username);
+        $this->db->where('password',$password);
         $query = $this->db->get();
 
-        return $query->row(0);
-    }
-    public function getpassword($password)
-    {   
-        $this->db->select('username');
-        $this->db->from('users');
-        $this->db->where('username', $password);
-        $query = $this->db->get();
-
-        return $query->row(0);
+        return $query->result();
     }
 
     public function insert($params)

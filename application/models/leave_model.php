@@ -1,9 +1,7 @@
 <?php
 class leave_model extends CI_Model
 {
-    public function __construct()
-    {
-    }
+
     public function getAll($start = 0, $perpage = 0)
     {
         $this->db->select('*');
@@ -14,12 +12,12 @@ class leave_model extends CI_Model
 
         return $query->result();
     }
-    public function getbyID($id)
+    public function getbyEmp_ID($id)
     {
         $this->db->where('emp_id', $id);
         $query = $this->db->get('leaves');
 
-        return $query->row(0);
+        return $query->result();
     }
     public function insert($params)
     {
