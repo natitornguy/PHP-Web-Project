@@ -1,11 +1,20 @@
 <?php
 class employee_model extends CI_Model
 {
-    public function getAll(/*$start = 0, $perpage = 0*/)
+    public function __construct()
     {
-        $this->db->select('*');
-        $this->db->from('employees');
-        $this->db->order_by('emp_fname');
+    }
+    public function getAll($keyword = "")
+    {
+        $this->db->select("employees.*, departments.DEP_NAME");
+        $this->db->from("employees");
+        $this->db->join("departments", "departments.DEP_ID = employees.DEP_ID");
+        if (strlen($keyword) > 0) {
+            $this->db->like("EMP_FNAME", $keyword, "both");
+            $this->db->or_like("EMP_LNAME", $keyword, "both");
+        }
+
+        $this->db->order_by('EMP_ID', "ASC");
         // $this->db->limit($perpage, $start);
         $query = $this->db->get();
 
@@ -20,18 +29,37 @@ class employee_model extends CI_Model
     }
     public function insert($params)
     {
-        $this->db->insert('employees', $params);
+        $this->db->insert('employees', $params);        
+        $insert_id = $this->db->insert_id();       
+
+        return  $insert_id;
     }
-    public function update($params, $id)
+    public function update($id, $params)
     {
-        $this->db->where('emp_id', $id);
+        $this->db->where('EMP_ID', $id);
         $this->db->update('employees', $params);
     }
 
     public function delete($emp_id)
     {
+        $this->db->where('EMP_ID', $emp_id);
+        $this->db->delete('users');
         $this->db->where('emp_id', $emp_id);
         $this->db->delete('employees');
-        
+    }
+
+    public function getAllDepartment()
+    {
+        $this->db->select("*");
+        $this->db->from("departments");
+        $this->db->order_by('DEP_ID', "ASC");
+
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+    public function generateUserPassword($params)
+    {
+        $this->db->insert('users', $params);
     }
 }
