@@ -8,7 +8,7 @@ class Home extends CI_Controller
 
     public function index()
     {
-        $data["content"] = "leave/show";
+        $data["content"] = "LeaveRequest";
         $this->load->view("layout/main", $data);
     }
 }
