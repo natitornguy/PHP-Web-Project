@@ -8,3 +8,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <!-- Material Kit CSS -->
 <link href="<?=base_url("assets/")?>css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+<link href="<?=base_url("assets/")?>/demo/demo.css" rel="stylesheet" />
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

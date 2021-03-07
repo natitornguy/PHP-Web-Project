@@ -14,13 +14,17 @@ class user_model extends CI_Model
     }
     public function getuser($username,$password)
     {   
-        $this->db->select('*');
-        $this->db->from('users');
         $this->db->where('username', $username);
         $this->db->where('password',$password);
-        $query = $this->db->get();
+        
+        $query = $this->db->get('users');
 
-        return $query->result();
+        if($query->num_rows()==0){
+			return FALSE;
+		}
+		else{
+			return $query->row(0);
+		}
     }
 
     public function insert($params)
@@ -32,7 +36,7 @@ class user_model extends CI_Model
         $this->db->where('user_id', $id);
         $this->db->update('users', $params);
     }
-
+    
     public function delete($user_id)
     {
         $this->db->where('user_id', $user_id);
