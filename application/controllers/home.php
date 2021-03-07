@@ -9,6 +9,7 @@ class home extends CI_Controller{
         $this->load->model('department_model');
     }
     public function index(){
+        $this->load->view('leaveform.php');
         // test employee model load data pass
         // $data = $this->employee_model->getAll();
         // var_dump($data);
@@ -62,4 +63,27 @@ class home extends CI_Controller{
         // $data = $this->department_model->getAll();
         // var_dump($data);
     }
+    public function addleave(){
+        $emp_id = 1;
+        $leave_sts = 1;
+        $start = $this->input->post('startDate');
+        $end = $this->input->post('endDate');
+        // $startDate = date("Y-m-d");
+        // $endDate = date("Y-m-d");
+        $reason = $this->input->post('reason');
+        
+        $params['emp_id'] = $emp_id;
+        $params['leave_status'] = $leave_sts;
+        // $params['leave_from'] = date_format($start,"Y-m-d");
+        // $params['leave_to'] = date_format($end,"Y-m-d");
+        $params['leave_from'] = $start;
+        $params['leave_to'] = $end;
+        $params['leave_reason'] = $reason;
+        // print_r($params);
+        $this->leave_model->insert($params);
+
+        $this->session->set_flashdata('flash_success','ข้อมูลถูกบันทึกแล้ว');
+        redirect("home/index");
+    }
 }
+?>
