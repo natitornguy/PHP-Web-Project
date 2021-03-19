@@ -44,10 +44,10 @@
                             <div class="col-lg-8 col-12">
                                 <form method="POST" id="login-form" action="<?= base_url("user/login") ?>">
                                     <div class="form-group mt-3">
-                                        <input type="text" name="username" id="username" class="form-control" placeholder="ชื่อผู้ใช้งาน"/>
+                                        <input type="text" name="username" id="username" class="form-control" placeholder="ชื่อผู้ใช้งาน" value="admin@gmail.com"/>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="รหัสผ่าน" />
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="รหัสผ่าน" value="admin"/>
                                     </div>
                                     <div class="form-group form-button">
                                         <button type="submit" name="signin" id="signin" class="btn btn-primary">เข้าสู่ระบบ</button>
